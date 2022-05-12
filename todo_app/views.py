@@ -1,0 +1,25 @@
+from django.shortcuts import render,redirect
+from .models import Task
+
+# Create your views here.
+def home(request):
+    '''Renders the home page when the user is logged in'''
+    my_tasks = Task.objects.all()
+    return render(request,'users.html',{'my_tasks':my_tasks})
+
+def index(request):
+    '''return the page before loging in'''
+    return render(request,'index.html')
+
+def sign(request):
+    '''Returns the signup page'''
+    return render(request,'sign.html')
+
+def add_task(request):
+    '''Add a task to the database'''
+    if request.method == 'POST':
+        task_passed = request.POST.get('task')
+        new_task = Task()
+        new_task.name = task_passed
+        new_task.save()
+    return redirect('home')
