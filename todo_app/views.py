@@ -23,3 +23,10 @@ def add_task(request):
         new_task.name = task_passed
         new_task.save()
     return redirect('home')
+
+def delete(request):
+    '''Delete a task from the database'''
+    deleted_item = request.GET.get('item_to_delete')
+    del_item = Task.objects.get(id=deleted_item)
+    del_item.delete()
+    return redirect('home')

@@ -74,12 +74,12 @@
         <div class="per_task-wrap">
           {% for each in my_tasks %}
           <div class="per_task">
-            <h3 id="1">{{each}}</h3>
+            <h3 id="{{each.id}}">{{each}}</h3>
             <div class="edit_it">
-              <button class="ram" id="1" onclick="getEdit(this)">
+              <button class="ram" id="{{each.id}}" onclick="getEdit(this)">
                 <img src="{% static './svg/edit-svgrepo-com.svg' %} " alt="" />
               </button>
-              <button class="delete" id="1" onclick="getId(this)">
+              <button class="delete" id="{{each.id}}" onclick="getId(this)">
                 <img src="{% static './svg/delete-svgrepo-com.svg' %} " alt="" />
               </button>
             </div>
@@ -94,8 +94,8 @@
           <div class="card_top">
             <h2>🗑 Are you sure you want delete ?</h2>
           </div>
-          <form action="" class="card_c">
-            <input type="hidden" name="" id="tosend" value="" />
+          <form action="{% url 'delete' %}" class="card_c">
+            <input type="hidden" name="item_to_delete" id="tosend" value="" />
             <p>
               Please be aware that deleting this particular content can not be
               reversed.You then need to create a new one
