@@ -74,7 +74,7 @@
         <div class="per_task-wrap">
           {% for each in my_tasks %}
           <div class="per_task">
-            <h3 id="{{each.id}}">{{each}}</h3>
+            <h3 id="">{{each}}</h3>
             <div class="edit_it">
               <button class="ram" id="{{each.id}}" onclick="getEdit(this)">
                 <img src="{% static './svg/edit-svgrepo-com.svg' %} " alt="" />
@@ -113,8 +113,10 @@
           <div class="card_top">
             <h2>📝 Edit Task</h2>
           </div>
-          <form action="" class="card_c">
+          <form action="{% url 'edit_task' %}" class="card_c" method="POST">
+            {% csrf_token %}
             <input
+              name="edit_text"
               type="text"
               placeholder="Edit Task"
               id="unique"
@@ -125,7 +127,7 @@
                 border: 1px solid #d0d0d0;
               "
             />
-            <input type="hidden" name="" id="sentForm" value="" />
+            <input type="hidden" name="edit_id" id="sentForm" value="" />
             <p>
               <!-- Please be aware that deleting this particular content can not be
               reversed.You then need to create a new one -->

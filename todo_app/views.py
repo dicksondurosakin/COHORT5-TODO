@@ -19,9 +19,10 @@ def add_task(request):
     '''Add a task to the database'''
     if request.method == 'POST':
         task_passed = request.POST.get('task')
-        new_task = Task()
-        new_task.name = task_passed
-        new_task.save()
+        if task_passed:
+            new_task = Task()
+            new_task.name = task_passed
+            new_task.save()
     return redirect('home')
 
 def delete(request):
@@ -29,4 +30,14 @@ def delete(request):
     deleted_item = request.GET.get('item_to_delete')
     del_item = Task.objects.get(id=deleted_item)
     del_item.delete()
+    return redirect('home')
+
+def edit_task(request):
+    '''edit the current item'''
+    if request.method == 'POST':
+        text = request.POST.get('edit_text')
+        id = request.POST.get('edit_id')
+        item_to_edit = Task.objects.get(id=id)
+        item_to_edit.name=text
+        item_to_edit.save()
     return redirect('home')
